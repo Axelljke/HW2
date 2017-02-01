@@ -1,0 +1,6 @@
+c:\users\axell\documents\visual studio 2015\Projects\HW2\HW2\bin\Debug\HW2.exe.config
+c:\users\axell\documents\visual studio 2015\Projects\HW2\HW2\bin\Debug\HW2.exe
+c:\users\axell\documents\visual studio 2015\Projects\HW2\HW2\bin\Debug\HW2.pdb
+c:\users\axell\documents\visual studio 2015\Projects\HW2\HW2\obj\Debug\HW2.csprojResolveAssemblyReference.cache
+c:\users\axell\documents\visual studio 2015\Projects\HW2\HW2\obj\Debug\HW2.exe
+c:\users\axell\documents\visual studio 2015\Projects\HW2\HW2\obj\Debug\HW2.pdb
