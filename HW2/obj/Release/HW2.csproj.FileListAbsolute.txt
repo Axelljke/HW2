@@ -3,3 +3,4 @@ c:\users\axell\documents\visual studio 2015\Projects\HW2\HW2\bin\Release\HW2.exe
 c:\users\axell\documents\visual studio 2015\Projects\HW2\HW2\bin\Release\HW2.pdb
 c:\users\axell\documents\visual studio 2015\Projects\HW2\HW2\obj\Release\HW2.exe
 c:\users\axell\documents\visual studio 2015\Projects\HW2\HW2\obj\Release\HW2.pdb
+C:\Users\Axell\Documents\Visual Studio 2015\Projects\HW2\HW2\obj\Release\HW2.csprojResolveAssemblyReference.cache
