@@ -27,10 +27,7 @@ namespace HW2
                 string buffer = String.Empty;
                 // инициализация ID аргумента/строки
                 int x = 0;
-                // инициализация "указателя" на начало 2 строки. Если =0 значит начало 2 строки не найдено. По умолчанию оно не найдено.
-                int str2start = 0;
                 //Перебор символов в строке и сравнение с набором допустимых символов
-                //if (str[0] == '"') { strop = true; }
                 for (int i=0; i < str.Length; i++)
                 {
                     // "обнуление" флага ошибки. По умолчани ошибка есть. При нахождении совпадения с массивом допустимых символов флаг ошибки получает значение false"
@@ -38,8 +35,6 @@ namespace HW2
                     // проверка на работу с числом
                     if(strop == false)
                     {
-                        // проверка на пробел
-                        if (str[i] == ' ') { continue; }
                         // проверка текущего символа с массивом из символов чисел
                         for (int j = 0; j <= 9; j++)
                         {
@@ -58,7 +53,15 @@ namespace HW2
                                 if (str[i] == operatorsarr[k])
                                 {
                                     error1 = false;
-                                    arg[x] = Convert.ToInt32(buffer);
+                                    try
+                                    {
+                                        arg[x] = Convert.ToInt32(buffer);
+                                    }
+                                    catch (Exception error)
+                                    {
+                                        Console.WriteLine(error.Message);
+                                        goto errorHappens;
+                                    }
                                     buffer = String.Empty;
                                     operator1 = k;
                                     x++;
@@ -67,69 +70,60 @@ namespace HW2
                             }
                         }
                         //проверка на ошибку
-                        if (error1 == true) { strop = true; goto errorHappens; }
+                        if (error1 == true) { strop = true; }
                         //Проверка на конец строки. В положительном случае присваевается значение второму аргументу
                         if (((i + 1) == str.Length) && (operator1 !=4))
                         {
-                            arg[x] = Convert.ToInt32(buffer);
+                            try
+                            {
+                                arg[x] = Convert.ToInt32(buffer);
+                            }
+                            catch (Exception error)
+                            {
+                                Console.WriteLine(error.Message);
+                                goto errorHappens;
+                            }
                         }
                     }
                     if (strop == true)
                     {
-                        //пропускаем " которые стоят вначале первой строки.
-                        if (i == 0) { i++; }
-                        //if((str[i]=='+')&& (i == 0)) { goto errorHappens; }//проверка на
                         //проверка на номер строки, с которой работает метод
                         if (x == 0)
                         {
-                            //проверка на закрывающие " первой строки
-                            if (str[i]!='"')
+                            //проверка на знак +
+                            if (str[i]!='+')
                             {
                                 buffer += str[i];
                             }
                             else
                             {
-                                if (i == 0) { continue; }
-                                if (i == 1) { goto errorHappens; }
+                                if (i == 0) { goto errorHappens; }
+                                if (i == (str.Length-1)) { goto errorHappens; }
                                 strans = buffer;
                                 buffer = String.Empty;
+                                operator1 = 0;
                                 x++;
                             }
                         }
                         else
                         {
-
-                            if ((str2start == 0)&&(str[i] == ' ')) { continue; }//проверка на пробел
-                            if ((str2start == 0) && (str[i] == '+') && (operator1 == 4)) { operator1 = 0; continue; }// проверка на знак +
-                            if ((str2start == 0) && (str[i] != '"') && (operator1 == 4)) { goto errorHappens; }// проверка на другие знаки вместо +
-                            if ((str2start == 0) && (str[i] == '"') && (operator1 == 0))
+                            buffer += str[i];
+                            if (i == (str.Length - 1))
                             {
-                                str2start = i + 1;
-                                i++;
-                            }
-                            if (str[i] != '"')
-                            {
-                                if(i == (str.Length - 1)) { goto errorHappens; }
-                                buffer += str[i];
-                            }
-                            else
-                            {
-                                if (i == str2start) { goto errorHappens; }
-                                if(i!=(str.Length-1)) { goto errorHappens; }
+                                if (arg[0] != 0) { strans = Convert.ToString(arg[0]); }
                                 strans += buffer;
                                 buffer = String.Empty;
-                                goto printstr;
-                            } 
+                            }
                         }
-                        
-
                     }
                 }
                 //Проверка оператора
                 if(strop==false)
                 {
-                    switch (operator1)
+                    try
                     {
+                        switch (operator1)
+                        {
                         case 0:
                             ans = arg[0] + arg[1];
                             break;
@@ -144,9 +138,21 @@ namespace HW2
                             break;
                         default:
                             goto errorHappens;
+                        }
+                    }
+                    catch (Exception error)
+                    {
+                        Console.WriteLine(error.Message);
+                        goto errorHappens;
                     }
                 }
-                Console.WriteLine("{0} {1} {2} = {3}",arg[0], operatorsarr[operator1], arg[1], ans);
+                else
+                { 
+                    if(operator1==0){ goto printstr; }
+                    else { goto errorHappens; }
+
+                }
+            Console.WriteLine("{0} {1} {2} = {3}",arg[0], operatorsarr[operator1], arg[1], ans);
                 return ans;
             //указатель для перехода к выводу результата строкового значения
             printstr:
