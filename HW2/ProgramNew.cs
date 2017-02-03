@@ -179,5 +179,5 @@ namespace HW2
                 Console.Clear();
             }
         }
-    }
+    } 
 }
